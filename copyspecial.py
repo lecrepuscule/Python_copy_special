@@ -19,12 +19,16 @@ import commands
 # Write functions and modify main() to call them
 def get_special_paths(dir):
   filenames = os.listdir(dir)
+  abs_path = os.path.abspath(dir)
   special_paths = []
   for filename in filenames:
     if re.search(r"__\w+__", filename):
-      special_paths.append(os.path.abspath(dir) + filename)
-      print os.path.abspath(dir) + filename
+      special_paths.append(os.path.join(abs_path, filename))
+      print os.path.join(abs_path, filename)
   return special_paths
+
+# def copy_to(paths, dir):
+
 
 def main():
   # This basic command line argument parsing code is provided.
@@ -56,7 +60,12 @@ def main():
 
   # +++your code here+++
   # Call your functions
-  print "output is: " + str(get_special_paths(args[0]))
+  if todir:
+    special_paths = get_special_paths(args[0])
+    copy_to(special_paths, todir)
+  # elif tozip:
+  else:
+    print "output is: " + str(get_special_paths(args[0]))
   
 if __name__ == "__main__":
   main()
