@@ -27,8 +27,12 @@ def get_special_paths(dir):
       print os.path.join(abs_path, filename)
   return special_paths
 
-# def copy_to(paths, dir):
-
+def copy_to(paths, dir):
+  abs_path = os.path.abspath(dir)
+  if not os.path.exists(abs_path):
+    os.makedirs(abs_path)
+  for path in paths:
+    shutil.copy(path, abs_path)
 
 def main():
   # This basic command line argument parsing code is provided.
